@@ -8,22 +8,6 @@ Explore the live site: https://vignesh-video-portfolio.vercel.app/
 
 ---
 
-## 📸 Screenshots
-
-### 1. Hero Section
-Features a high-definition background video with programmatic play/pause control, audio toggling, and an interactive 3-second centered logo loader cycling across Telugu, Hindi, and English.
-![Hero Section](./public/images/readme_hero.png)
-
-### 2. About Me Section (Digital Systems)
-Highlights core expertise using a clean responsive grid system alongside a high-resolution portrait sketch.
-![About Me Section](./public/images/readme_about.png)
-
-### 3. Contact & Footer Section
-Provides smooth-scroll action anchors to project sections and redirects users to active platforms.
-![Contact Section](./public/images/readme_contact.png)
-
----
-
 ## ✨ Features
 
 - **Multi-Language Logo Loader**: A custom loading screen centering the sketch logo and cycling the text "VIGNESH PORTFOLIO" in Telugu (`విగ్నేష్ పోర్ట్‌ఫోలియో`), Hindi (`विघ्नेश पोर्टफोलियो`), and English (`VIGNESH PORTFOLIO`) with smooth Framer Motion fades.
