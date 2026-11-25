@@ -15,6 +15,7 @@ import HorizontalScroll from "@/components/HorizontalScroll/HorizontalScroll";
 import Projects from "@/components/Projects/Projects";
 import Contact from "@/components/Contact/Contact";
 import SiteFooter from "@/components/SiteFooter/SiteFooter";
+import ThemeRope from "@/components/ThemeRope/ThemeRope";
 
 export default function Home() {
   const ref = useRef(null);
@@ -48,6 +49,7 @@ export default function Home() {
           className="h-auto relative mt-16 md:mt-[10rem] px-6 sm:px-12 lg:px-20 pb-24 z-10 flex flex-col gap-8 md:gap-12"
           ref={ref}
         >
+          <ThemeRope />
           <Skiggle />
           <Header />
           

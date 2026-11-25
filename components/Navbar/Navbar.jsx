@@ -7,7 +7,6 @@ import { Trail } from "./TrailText";
 import LetsTalk from "./LetsTalk";
 import MenuButton from "./MenuButton";
 import Link from "next/link";
-import MusicButton from "./MusicButton";
 
 // Shared contact targets — same as Menu/Contact/SiteFooter.
 const EMAIL = "vigneshgopagoni@gmail.com";
@@ -206,7 +205,6 @@ function Navbar() {
           </div>
           <div className="hidden lg:flex items-center justify-around font-AeonikMedium">
             <Trail open={open} className="flex">
-              <MusicButton />
               <LetsTalk />
               <MenuButton />
             </Trail>

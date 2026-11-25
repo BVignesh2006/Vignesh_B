@@ -28,7 +28,7 @@
    light palette of the site, so the look is unchanged when no theme is
    set. `[data-theme="dark"]` overrides those values to produce the dark
    variant. The theme is applied by setting `data-theme="dark"` on the
-   <html> element (see `app/layout.js` and the theme toggle button).
+   <html> element (see `app/layout.js` and the hanging lamp in the About section).
 
    Keeping every theme decision in one block makes it easy to tweak the
    palette later — we never have to chase hex values through the rest of
@@ -130,6 +130,184 @@ html {
   @apply rounded-full w-10 h-10 mx-2;
   background-color: var(--color-btn-sm-bg);
   color: var(--color-btn-light-text);
+}
+
+/* ── HANGING LAMP THEME SWITCH ──
+   A cord hanging from the top of the About section. Pulling the lamp
+   lengthens the cord, swaps the theme at the bottom of the pull, then lets
+   the lamp swing back into place. `--rope-pull` is driven by ThemeRope.jsx. */
+.theme-rope {
+  --rope-pull: 0px;
+  position: absolute;
+  top: -1.5rem;
+  right: 1rem;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  animation: theme-rope-idle 6s ease-in-out infinite;
+}
+
+.theme-rope__mount {
+  width: 46px;
+  height: 8px;
+  border-radius: 999px;
+  background-color: var(--color-text);
+  opacity: 0.8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.theme-rope__mount::after {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 7px;
+  margin: 0 auto;
+  border-radius: 0 0 6px 6px;
+  background-color: var(--color-text);
+  opacity: 0.65;
+}
+
+.theme-rope__cord {
+  width: 3px;
+  height: calc(112px + var(--rope-pull));
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--color-text) 0 5px,
+    transparent 5px 8px
+  );
+  opacity: 0.6;
+  transition: height 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.18s ease;
+}
+
+.theme-rope[data-phase="down"] .theme-rope__cord,
+.theme-rope[data-phase="release"] .theme-rope__cord {
+  opacity: 0.9;
+}
+
+.theme-rope__lamp {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  cursor: grab;
+  transform: translateY(var(--rope-pull));
+  transform-origin: 50% 0;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  touch-action: none;
+}
+
+.theme-rope__lamp:active {
+  cursor: grabbing;
+}
+
+.theme-rope[data-phase="release"] .theme-rope__lamp {
+  animation: theme-rope-swing 0.62s ease-out;
+}
+
+.theme-rope__lamp:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+.theme-rope__cap {
+  width: 16px;
+  height: 8px;
+  border-radius: 4px 4px 2px 2px;
+  background-color: currentColor;
+  opacity: 0.8;
+}
+
+.theme-rope__shade {
+  width: 58px;
+  height: 42px;
+  color: currentColor;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.18));
+}
+
+.theme-rope__bulb {
+  width: 20px;
+  height: 20px;
+  margin-top: -4px;
+  border-radius: 999px;
+  background-color: #ffe6a8;
+  box-shadow: 0 0 16px 4px rgba(255, 205, 110, 0.5);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+[data-theme="dark"] .theme-rope__bulb {
+  background-color: #ffd27a;
+  box-shadow: 0 0 26px 9px rgba(255, 201, 92, 0.6);
+}
+
+.theme-rope[data-phase="down"] .theme-rope__bulb {
+  box-shadow: 0 0 32px 12px rgba(255, 208, 112, 0.75);
+}
+
+.theme-rope__pull {
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.theme-rope__lamp:hover .theme-rope__pull,
+.theme-rope__lamp:focus-visible .theme-rope__pull {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes theme-rope-idle {
+  0%, 100% { rotate: -1deg; }
+  50% { rotate: 1deg; }
+}
+
+@keyframes theme-rope-swing {
+  0% { transform: translateY(0) rotate(-4deg); }
+  35% { transform: translateY(0) rotate(3deg); }
+  65% { transform: translateY(0) rotate(-2deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@media (min-width: 768px) {
+  .theme-rope {
+    top: -2.5rem;
+    right: 8%;
+  }
+
+  .theme-rope__cord {
+    height: calc(140px + var(--rope-pull));
+  }
+}
+
+@media (min-width: 1280px) {
+  .theme-rope {
+    right: 12%;
+  }
+
+  .theme-rope__cord {
+    height: calc(160px + var(--rope-pull));
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-rope {
+    top: -1rem;
+    right: 0.5rem;
+    transform: scale(0.82);
+    transform-origin: top right;
+  }
 }
 
 @font-face{
